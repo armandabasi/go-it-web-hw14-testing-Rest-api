@@ -100,7 +100,7 @@ async def get_user(client_id: int = Path(ge=1), db: Session = Depends(get_db),
 
 
 @router.post("/", response_model=ClientResponse, status_code=status.HTTP_201_CREATED,
-             dependencies=[Depends(access_create), Depends(RateLimiter(times=2, seconds=60))],
+             dependencies=[Depends(access_create),  Depends(RateLimiter(times=2, seconds=60))],
              description="No more than 2 requests per minute")
 async def create_users(body: ClientModel, db: Session = Depends(get_db),
                        _: User = Depends(auth_service.get_current_user)):

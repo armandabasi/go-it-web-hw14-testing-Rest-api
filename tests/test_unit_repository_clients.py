@@ -137,13 +137,13 @@ class TestClients(unittest.IsolatedAsyncioTestCase):
 
     async def test_get_birthday(self):
         clients = [
-            Client(id=1, birthday="2000-06-02"),
-            Client(id=2, birthday="2000-06-10"),
+            Client(id=1, birthday="2000-06-05"),
+            Client(id=2, birthday="2000-06-06"),
             Client(id=3, birthday="2000-06-15"),
         ]
         self.session.query().all.return_value = clients
         result = await get_birthday(7, self.session)
-        self.assertEqual(len(result), 1)
+        self.assertEqual(len(result), 2)
         self.assertIn(clients[0], result)
 
     async def test_search_clients(self):

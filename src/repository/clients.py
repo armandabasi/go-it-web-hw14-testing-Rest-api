@@ -122,7 +122,10 @@ async def get_birthday(days: int, db: Session):
     client = db.query(Client).all()
     birthday_list = []
     for client in client:
-        birthday_this_year = datetime.strptime(client.birthday, "%Y-%m-%d").date().replace(year=2023)
+        if type(client.birthday) == str:
+            birthday_this_year = datetime.strptime(client.birthday, "%Y-%m-%d").date().replace(year=2023)
+        else:
+            birthday_this_year = client.birthday.replace(year=2023)
         if end_period >= birthday_this_year >= today:
             birthday_list.append(client)
     return birthday_list
